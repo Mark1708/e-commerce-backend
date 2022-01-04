@@ -1,0 +1,7 @@
+.gradle
+gradle
+gradlew
+gradlew.bat
+.DS_Store
+docker-compose1.yml
+.idea/

@@ -1,0 +1,3 @@
+CREATE USER category WITH PASSWORD 'category';
+CREATE DATABASE category;
+GRANT ALL PRIVILEGES ON DATABASE category TO category;

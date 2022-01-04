@@ -1,0 +1,4 @@
+rootProject.name = 'e-commerce-backend'
+include 'category-service'
+include 'config-service'
+include 'discovery-service'

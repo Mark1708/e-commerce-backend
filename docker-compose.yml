@@ -1,0 +1,70 @@
+version: '3.3'
+services:
+  database:
+    image: postgres:12.2-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d/
+    networks:
+      backend:
+        aliases:
+          - "database"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  discovery:
+    image: shop-app/discovery
+    build:
+      context: discovery-service
+      dockerfile: Dockerfile
+    ports:
+      - 8761:8761
+    networks:
+      - backend
+  config:
+    image: shop-app/config
+    build:
+      context: config-service
+      dockerfile: Dockerfile
+    ports:
+      - 8888:8888
+    depends_on:
+      - discovery
+    environment:
+      GIT_USERNAME: "username"
+      GIT_PASS: "pass"
+      DISCOVERY_SERVER_HOST: "discovery"
+      DISCOVERY_SERVER_PORT: "8761"
+    networks:
+      - backend
+  category:
+    image: shop-app/category
+    build:
+      context: category-service
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      PROFILE: "dev"
+      DATABASE_SERVER_HOST: "database"
+      DATABASE_SERVER_PORT: "5432"
+      CONFIG_SERVER_HOST: "config"
+      CONFIG_SERVER_PORT: "8888"
+      DISCOVERY_SERVER_HOST: "discovery"
+      DISCOVERY_SERVER_PORT: "8761"
+    depends_on:
+      - database
+      - discovery
+      - config
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
