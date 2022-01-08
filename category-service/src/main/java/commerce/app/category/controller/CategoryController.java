@@ -28,12 +28,12 @@ public class CategoryController {
 
 
     @RequestMapping(value="/{categoryId}",method = RequestMethod.GET)
-    public ResponseEntity<CategoryDto> getCategory(@PathVariable("categoryId") String categoryId) {
+    public ResponseEntity<CategoryDto> getCategory(@PathVariable("categoryId") Long categoryId) {
         return ResponseEntity.ok(service.findById(categoryId));
     }
 
     @RequestMapping(value="/{categoryId}",method = RequestMethod.PUT)
-    public ResponseEntity<CategoryDto> updateCategory( @PathVariable("categoryId") String categoryId, @RequestBody Category category) {
+    public ResponseEntity<CategoryDto> updateCategory( @PathVariable("categoryId") Long categoryId, @RequestBody Category category) {
         return ResponseEntity.ok(service.update(category));
     }
 
@@ -44,7 +44,7 @@ public class CategoryController {
 
     @RequestMapping(value="/{categoryId}",method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCategory( @PathVariable("categoryId") String categoryId) {
+    public void deleteCategory( @PathVariable("categoryId") Long categoryId) {
         service.delete(categoryId);
     }
 }

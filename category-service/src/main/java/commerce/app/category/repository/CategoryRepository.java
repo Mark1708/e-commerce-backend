@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Category, String> {
+public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-    Optional<Category> findById(String categoryId);
+    Optional<Category> findById(Long categoryId);
 
     List<Category> findAll();
 
-    void deleteById(String categoryId);
+    void deleteById(Long categoryId);
 }

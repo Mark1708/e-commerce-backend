@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -25,9 +24,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository repository;
 
-    public Category getById(String categoryId) {
+    public Category getById(Long categoryId) {
         log.debug("Get category from db by id");
-        return repository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException(NO_FOUND_BY_ID_ERROR + categoryId));
+        return repository.findById(categoryId)
+                .orElseThrow(() -> new ResourceNotFoundException(NO_FOUND_BY_ID_ERROR + categoryId));
     }
 
     @Override
@@ -40,7 +40,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto findById(String categoryId) {
+    public CategoryDto findById(Long categoryId) {
         log.debug("Get category from db by id");
         return convertToDto(getById(categoryId));
     }
@@ -58,12 +58,11 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto create(Category category) {
         log.debug("Create category from db");
-        category.setId(UUID.randomUUID().toString());
         return convertToDto(repository.saveAndFlush(category));
     }
 
     @Override
-    public void delete(String categoryId) {
+    public void delete(Long categoryId) {
         log.debug("Delete category from db");
         repository.deleteById(categoryId);
     }

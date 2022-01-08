@@ -3,9 +3,8 @@ DROP INDEX IF EXISTS category_index;
 
 CREATE TABLE IF NOT EXISTS categories
 (
-    category_id text NOT NULL UNIQUE,
-    name text NOT NULL UNIQUE,
-    CONSTRAINT categories_pkey PRIMARY KEY (category_id)
+    category_id BIGSERIAL PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE
 );
 
 CREATE INDEX category_index ON categories(category_id);

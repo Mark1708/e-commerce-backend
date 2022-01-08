@@ -10,7 +10,7 @@ import java.util.HashSet;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CategoryDto {
-    private String id;
+    private Long id;
     private String name;
     private String imageUrl;
     private HashSet<String> productList;

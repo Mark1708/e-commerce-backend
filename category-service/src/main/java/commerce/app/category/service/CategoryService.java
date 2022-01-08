@@ -9,13 +9,13 @@ public interface CategoryService {
 
     List<CategoryDto> findAll();
 
-    CategoryDto findById(String categoryId);
+    CategoryDto findById(Long categoryId);
 
     CategoryDto update(Category category);
 
     CategoryDto create(Category category);
 
-    void delete(String categoryId);
+    void delete(Long categoryId);
 
     CategoryDto convertToDto(Category category);
 
