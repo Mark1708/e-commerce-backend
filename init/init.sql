@@ -1,3 +1,7 @@
 CREATE USER category WITH PASSWORD 'category';
 CREATE DATABASE category;
 GRANT ALL PRIVILEGES ON DATABASE category TO category;
+
+CREATE USER product WITH PASSWORD 'product';
+CREATE DATABASE product;
+GRANT ALL PRIVILEGES ON DATABASE product TO product;

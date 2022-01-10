@@ -2,8 +2,8 @@
 gradle
 gradlew
 .DS_Store
-build/
 HELP.md
+build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/

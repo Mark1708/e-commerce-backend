@@ -2,7 +2,7 @@ package commerce.app.category.dto;
 
 import lombok.*;
 
-import java.util.HashSet;
+import java.util.List;
 
 @Getter
 @Setter
@@ -10,8 +10,8 @@ import java.util.HashSet;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CategoryDto {
-    private String id;
+    private Long id;
     private String name;
     private String imageUrl;
-    private HashSet<String> productList;
+    private List<ProductDto> productList;
 }

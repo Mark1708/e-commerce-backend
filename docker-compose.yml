@@ -43,13 +43,13 @@ services:
       DISCOVERY_SERVER_PORT: "8761"
     networks:
       - backend
-  category:
-    image: shop-app/category
+  product:
+    image: shop-app/product
     build:
-      context: category-service
+      context: product-service
       dockerfile: Dockerfile
     ports:
-      - 8080:8080
+      - 8083:8083
     environment:
       PROFILE: "dev"
       DATABASE_SERVER_HOST: "database"
@@ -62,6 +62,28 @@ services:
       - database
       - discovery
       - config
+    networks:
+      - backend
+  category:
+    image: shop-app/category
+    build:
+      context: category-service
+      dockerfile: Dockerfile
+    ports:
+      - 8082:8082
+    environment:
+      PROFILE: "dev"
+      DATABASE_SERVER_HOST: "database"
+      DATABASE_SERVER_PORT: "5432"
+      CONFIG_SERVER_HOST: "config"
+      CONFIG_SERVER_PORT: "8888"
+      DISCOVERY_SERVER_HOST: "discovery"
+      DISCOVERY_SERVER_PORT: "8761"
+    depends_on:
+      - database
+      - discovery
+      - config
+      - product
     networks:
       - backend
 
