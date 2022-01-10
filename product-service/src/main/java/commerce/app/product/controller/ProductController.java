@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value="v1/category/{categoryId}/product")
+@RequestMapping(value="/v1/category/{categoryId}/product")
 public class ProductController {
 
     @Autowired
