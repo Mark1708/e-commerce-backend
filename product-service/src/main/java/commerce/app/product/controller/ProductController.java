@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @RestController
@@ -21,6 +22,7 @@ public class ProductController {
         this.service = service;
     }
 
+    @RolesAllowed({ "ADMIN", "USER" })
     @RequestMapping(value="/all",method = RequestMethod.GET)
     public ResponseEntity<List<ProductDto>> getAllProducts(@PathVariable("categoryId") Long categoryId) {
         if (categoryId == 0)
@@ -29,27 +31,32 @@ public class ProductController {
     }
 
 
+    @RolesAllowed({ "ADMIN", "USER" })
     @RequestMapping(value="/{productId}",method = RequestMethod.GET)
     public ResponseEntity<ProductDto> getProduct(@PathVariable("productId") String productId, @PathVariable String categoryId) {
         return ResponseEntity.ok(service.findById(productId));
     }
 
+    @RolesAllowed("ADMIN")
     @RequestMapping(value="/{productId}",method = RequestMethod.PUT)
     public ResponseEntity<ProductDto> updateProduct( @PathVariable("productId") String productId, @RequestBody Product product) {
         return ResponseEntity.ok(service.update(product));
     }
 
+    @RolesAllowed("ADMIN")
     @PostMapping
     public ResponseEntity<ProductDto>  saveProduct(@RequestBody Product product) {
         return ResponseEntity.ok(service.create(product));
     }
 
+    @RolesAllowed("ADMIN")
     @RequestMapping(value="/{productId}",method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProduct(@PathVariable("productId") String productId, @PathVariable String categoryId) {
         service.delete(productId);
     }
 
+    @RolesAllowed("ADMIN")
     @RequestMapping(method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProductsByCategoryId(@PathVariable("categoryId") Long categoryId) {

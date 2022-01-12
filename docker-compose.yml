@@ -1,5 +1,16 @@
 version: '3.3'
 services:
+  keycloak:
+    image: jboss/keycloak
+    restart: always
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_FRONTEND_URL: http://localhost:8080/auth
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
   database:
     image: postgres:12.2-alpine
     ports:
@@ -26,7 +37,9 @@ services:
     ports:
       - 8761:8761
     networks:
-      - backend
+      backend:
+        aliases:
+          - "discovery"
   config:
     image: shop-app/config
     build:
@@ -42,7 +55,9 @@ services:
       DISCOVERY_SERVER_HOST: "discovery"
       DISCOVERY_SERVER_PORT: "8761"
     networks:
-      - backend
+      backend:
+        aliases:
+          - "config"
   product:
     image: shop-app/product
     build:
@@ -85,7 +100,9 @@ services:
       - config
       - product
     networks:
-      - backend
+      backend:
+        aliases:
+          - "gateway"
 
 networks:
   backend:
