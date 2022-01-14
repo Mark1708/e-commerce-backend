@@ -5,6 +5,24 @@ spring:
     active: ${PROFILE:dev}
   config:
     import: optional:configserver:http://${CONFIG_SERVER_HOST:localhost}:${CONFIG_SERVER_PORT:8888}/
+  cloud:
+    gateway:
+      default-filters: TokenRelay
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: https://mermakov.info/auth/realms/test-micro-e-comm-3
+        registration:
+          keycloak:
+            client-id: ecomm-backend-1
+            client-secret: IHt3P34HlwYWwL56n5ZeVYeadQStbArF
+            provider: keycloak
+            authorization-grant-type: authorization_code
+#            redirect-uri:
+
+
 
 server:
   port: 8081

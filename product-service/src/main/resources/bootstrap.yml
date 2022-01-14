@@ -28,15 +28,20 @@ spring:
     name: product-service
   profiles:
     active: ${PROFILE:dev}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://mermakov.info/auth/realms/test-micro-e-comm-3
 server:
   port: 8083
 
-keycloak:
-  auth-server-url: https://mermakov.info/auth
-  credentials:
-    secret: IHt3P34HlwYWwL56n5ZeVYeadQStbArF
-  realm: test-micro-e-comm-3
-  bearer-only: true
-  use-resource-role-mappings: true
-  ssl-required: external
-  resource: ecomm-backend-1
+#keycloak:
+#  auth-server-url: https://mermakov.info/auth
+#  credentials:
+#    secret: IHt3P34HlwYWwL56n5ZeVYeadQStbArF
+#  realm: test-micro-e-comm-3
+#  bearer-only: true
+#  use-resource-role-mappings: true
+#  ssl-required: external
+#  resource: ecomm-backend-1
